@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, filter, map, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, filter, map, Observable, throwError } from 'rxjs';
 import { Page, PageAdapter, PageFilters } from '../models/page.model';
 import { PAGE_SIZE_OPTIONS, TRIPS_API_URL } from '../constants/settings';
 
@@ -48,9 +48,13 @@ export class PageService {
       }
     }
     const pageSubscription = this.http.get<Page>(url, options)
-      .pipe( map( (val: any) => val ? this.pageAdapter.adapt(val) : val )).subscribe((page: Page) => {
-        this.$page.next(page);
-        pageSubscription.unsubscribe();
+      .pipe(
+        map((val) => this.pageAdapter.adapt(val)),
+        catchError(error => throwError(() => error))
+      ).subscribe({
+        next: (page) => this.$page.next(page),
+        error: () => this.storedPageFilters = new PageFilters,
+        complete:() => pageSubscription.unsubscribe()
       });
   }
 

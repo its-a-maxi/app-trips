@@ -1,8 +1,10 @@
 import { FormatDatePipe } from './format-date.pipe';
 
 describe('FormatDatePipe', () => {
-  it('create an instance', () => {
-    const pipe = new FormatDatePipe();
-    expect(pipe).toBeTruthy();
+  
+  const pipe = new FormatDatePipe();
+
+  it('should transform date to string', () => {
+    expect(pipe.transform(new Date)).toBeInstanceOf(String);
   });
 });

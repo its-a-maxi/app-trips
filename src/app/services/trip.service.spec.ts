@@ -1,22 +1,36 @@
 import { TestBed } from '@angular/core/testing';
 
 import { TripService } from './trip.service';
-import { Trip, TripAdapter } from '../models/trip.model';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { asyncData, asyncError } from '../testing/async-observable-helpers';
+import { TripAdapter } from '../models/trip.model';
+import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+
+import { TRIPS_API_URL } from '../constants/settings';
 
 describe('TripService', () => {
-  let httpClientSpy: jasmine.SpyObj<HttpClient>;
   let tripAdapter: TripAdapter;
   let tripService: TripService;
+  let httpTesting: HttpTestingController;
 
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
-    tripAdapter = new TripAdapter;
-    tripService = new TripService(httpClientSpy, tripAdapter);
+    TestBed.configureTestingModule({
+      providers: [
+        TripService,
+        TripAdapter,
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ],
+    });
+    tripService = TestBed.inject(TripService);
+    tripAdapter = TestBed.inject(TripAdapter);
+    httpTesting = TestBed.inject(HttpTestingController);
   });
 
-  it('#getTrip should return expected trip (HttpClient called once)', (done: DoneFn) => {
+  afterEach(() => {
+    httpTesting.verify();
+  });
+
+  it('#getTrip should return expected trip', (done: DoneFn) => {
     const expectedTrip: any = {
       id: "uuid",
       title: "Trip to Paris",
@@ -36,26 +50,35 @@ describe('TripService', () => {
       imageUrl: "https://example.com/image.jpg",
       creationDate: "2024-01-01T00:00:00Z"
     }
-    httpClientSpy.get.and.returnValue(asyncData(expectedTrip));
-    tripService.getTrip('uuid').subscribe({
+    const tripId = 'uuid'
+
+    tripService.getTrip(tripId).subscribe({
       next: (trip) => {
         expect(trip).withContext('expected trip').toEqual(tripAdapter.adapt(expectedTrip));
         done();
       },
       error: done.fail,
     });
-    expect(httpClientSpy.get.calls.count()).withContext('one call').toBe(1);
+
+    const req = httpTesting.expectOne(`${TRIPS_API_URL}/trips/${tripId}`);
+    expect(req.request.method).toBe("GET");
+    req.flush(expectedTrip);
   });
 
   it('#getTrip should return an error when no trip is found', (done: DoneFn) => {
-    httpClientSpy.get.and.returnValue(asyncData(undefined));
-    tripService.getTrip('nonExistent-uuid').subscribe({
+    const tripId = 'nonExistent-uuid'
+
+    tripService.getTrip(tripId).subscribe({
       next: (trip) => done.fail('expected an error, not trip'),
       error: (error) => {
         expect(error.status).withContext('expected status').toEqual(400);
         done();
       },
     });
+
+    const req = httpTesting.expectOne(`${TRIPS_API_URL}/trips/${tripId}`);
+    expect(req.request.method).toBe("GET");
+    req.flush(null);
   });
   
   it('#getTrip should return an error when the server returns a 404', (done: DoneFn) => {
@@ -64,13 +87,16 @@ describe('TripService', () => {
       status: 404,
       statusText: 'Not Found',
     });
-    httpClientSpy.get.and.returnValue(asyncError(errorResponse));
-    tripService.getTrip('uuid').subscribe({
+    const tripId = 'uuid'
+    tripService.getTrip(tripId).subscribe({
       next: (trip) => done.fail('expected an error, not trip'),
       error: (error) => {
         expect(error.status).withContext('expected status').toEqual(404);
         done();
       },
     });
+
+    const req = httpTesting.expectOne(`${TRIPS_API_URL}/trips/${tripId}`);
+    req.flush('Failed!', {status: 404, statusText: 'Not Found'});
   });
 });
