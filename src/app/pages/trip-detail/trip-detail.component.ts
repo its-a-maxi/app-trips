@@ -48,14 +48,9 @@ export class TripDetailComponent {
   }
 
   private setActiveTrip(id: string) {
-    this.tripService.getTrip(id).subscribe(res => {
-      console.log(res);
-      if (res) {
-        this.trip = res;
-        console.log(res);
-      } else { // No trip
-        this.route.navigate(['/'])
-      }
-    })
+    this.tripService.getTrip(id).subscribe({
+      next: (res) => this.trip = res,
+      error: () => this.route.navigate(['/'])
+    });
   }
 }
