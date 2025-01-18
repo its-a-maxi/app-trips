@@ -85,7 +85,7 @@ export class PageFilterComponent implements OnChanges {
   }
 
   /**
-   * Emits the current set filters as an event
+   * Emits the current selected filters as an event
    */
   public applyFilters() {
     this.filterChanges.emit(new PageFilters(this.fitlersForm.value));

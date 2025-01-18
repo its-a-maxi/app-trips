@@ -42,7 +42,6 @@ export class HomeComponent {
   constructor(public pageService: PageService) {
     this.pageFilters = this.pageService.storedPageFilters;
     this.pageService.getPage().subscribe(page => {
-      console.log(page);
       this.page = page,
       this.loading = false
     });

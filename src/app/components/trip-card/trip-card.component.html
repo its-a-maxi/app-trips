@@ -1,14 +1,14 @@
 <mat-card class="example-card" appearance="outlined">
     <img mat-card-xl-image [src]="trip.thumbnailUrl">
-    <div class="rate-badge" matTooltip="Rating" matTooltipPosition="before">
+    <div class="rate-badge" matTooltip="Rating" matTooltipPosition="before" id="rating">
         <mat-icon>star_rate</mat-icon>
         {{trip.rating}}
     </div>
     <mat-card-content>
-        <p>{{trip.title}}</p>
-        <p class="date" matTooltip="Creation date">
+        <p id="title">{{trip.title}}</p>
+        <p id="date" matTooltip="Creation date">
             {{trip.creationDate | FormatDatePipe}}
         </p>
-        <h3>{{trip.price}} €</h3>
+        <h3 id="price">{{trip.price}} €</h3>
     </mat-card-content>
   </mat-card>
