@@ -20,7 +20,7 @@
         <mat-divider></mat-divider>
         <!-- Creation date -->
         <p class="date" matTooltip="Created on:" matTooltipPosition="before">
-            {{trip.creationDate.toLocaleDateString('en-GB', {year: 'numeric', month: 'short', day: 'numeric'})}}
+            {{trip.creationDate | FormatDatePipe}}
         </p>
         <!-- Description -->
         <p>{{trip.description}}</p>

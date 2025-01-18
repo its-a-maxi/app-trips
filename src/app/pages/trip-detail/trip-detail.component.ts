@@ -9,6 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
+import { FormatDatePipe } from '../../pipes/format-date.pipe';
 import { LoaderComponent } from '../../components/loader/loader.component';
 
 @Component({
@@ -23,7 +24,8 @@ import { LoaderComponent } from '../../components/loader/loader.component';
     MatTooltipModule,
     MatChipsModule,
     MatCardModule,
-    LoaderComponent
+    FormatDatePipe,
+    LoaderComponent,
   ],
   templateUrl: './trip-detail.component.html',
   styleUrl: './trip-detail.component.scss'

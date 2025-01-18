@@ -1,7 +1,7 @@
 <div class="header-container">
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
       <mat-label>Search</mat-label>
-      <input matInput placeholder="Trip to..." [formControl]="filterForm.controls.titleFilter" (focusout)="applyFilters()">
+      <input matInput placeholder="Trip to..." [formControl]="fitlersForm.controls.titleFilter" (focusout)="applyFilters()">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
     <button
@@ -22,22 +22,22 @@
       <div class="range price">
         <div class="label">
           <label>Price range:</label>
-          <label>{{formatPrice(filterForm.value.minPrice!)}} - {{formatPrice(filterForm.value.maxPrice!)}} €</label>
+          <label>{{formatPrice(fitlersForm.value.minPrice!)}} - {{formatPrice(fitlersForm.value.maxPrice!)}} €</label>
         </div>
         <mat-slider
           [max]="maxPrice"
           [min]="minPrice"
           [step]="100"
         >
-          <input matSliderStartThumb [formControl]="filterForm.controls.minPrice" (click)="applyFilters()">
-          <input matSliderEndThumb [formControl]="filterForm.controls.maxPrice" (click)="applyFilters()">
+          <input matSliderStartThumb [formControl]="fitlersForm.controls.minPrice" (click)="applyFilters()">
+          <input matSliderEndThumb [formControl]="fitlersForm.controls.maxPrice" (click)="applyFilters()">
         </mat-slider>
       </div>
       <div class="range">
         <div class="label">
           <label>Min rating:</label>
           <label>
-            {{filterForm.value.minRating}}
+            {{fitlersForm.value.minRating}}
           </label>
         </div>
         <mat-slider
@@ -45,7 +45,7 @@
           [min]="0"
           [step]=".5"
         >
-          <input matSliderThumb [formControl]="filterForm.controls.minRating" (click)="applyFilters()">
+          <input matSliderThumb [formControl]="fitlersForm.controls.minRating" (click)="applyFilters()">
         </mat-slider>
       </div>
     </div>

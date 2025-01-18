@@ -12,9 +12,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PageFilters, SortBy, SortOrder } from '../../models/page.model';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
-const MAX_FILTER_PRICE = 5000;
-const MIN_FILTER_PRICE = 500;
+import { MAX_FILTER_PRICE, MIN_FILTER_PRICE } from '../../constants/settings';
 
 @Component({
   selector: 'app-page-filter',
@@ -39,64 +37,79 @@ const MIN_FILTER_PRICE = 500;
 export class PageFilterComponent implements OnChanges {
 
   @ViewChild(MatSort) sort!: MatSort;
-
+  /** State of the filter panel */
+  public filtersAreOpen = false;
   public maxPrice = MAX_FILTER_PRICE;
   public minPrice = MIN_FILTER_PRICE;
 
-  public filtersAreOpen = false;
-  
-  public filterForm = new FormGroup({
-    titleFilter: new FormControl(''),
-    sortBy: new FormControl<SortBy | null>(null),
-    sortOrder: new FormControl<SortOrder | null>(null),
-    minPrice: new FormControl(this.minPrice),
-    maxPrice: new FormControl(this.maxPrice),
-    minRating: new FormControl(0),
+  /** Used to get the 'clean' state of the filters, shouldn't be reassigned or modified */
+  private pristinePageFilters = new PageFilters;
+  /** Reactive form for the filter values */
+  public fitlersForm = new FormGroup({
+    titleFilter: new FormControl(this.pristinePageFilters.titleFilter),
+    sortBy: new FormControl<SortBy | undefined>(this.pristinePageFilters.sortBy),
+    sortOrder: new FormControl<SortOrder | undefined>(this.pristinePageFilters.sortOrder),
+    minPrice: new FormControl(this.pristinePageFilters.minPrice),
+    maxPrice: new FormControl(this.pristinePageFilters.maxPrice),
+    minRating: new FormControl(this.pristinePageFilters.minRating),
   });
 
+  /** The state of the component filters */
   @Input() pageFilters?: PageFilters;
+  /** Lets the parent know when the filter has been updated */
   @Output() filterChanges = new EventEmitter<PageFilters>();
 
+  /**
+   * Listens to changes and updates the fitlersForm when its input changes.
+   */
   ngOnChanges(): void {
     if (this.pageFilters) {
       // Checks if any filter properly has been altered compared to the filter "clean" state
-      if (
-        this.pageFilters.sortBy ||
-        this.pageFilters.sortOrder ||
-        this.pageFilters.maxPrice !== this.filterForm.value.maxPrice ||
-        this.pageFilters.minPrice !== this.filterForm.value.minPrice ||
-        this.pageFilters.minRating !== this.filterForm.value.minRating
-      ) {
-        this.toggleFilters();
+      if (!this.pristinePageFilters.compareTo(this.pageFilters)) {
+        this.filtersAreOpen = true;
       }
-      this.filterForm.patchValue(this.pageFilters);
+      this.fitlersForm.patchValue(this.pageFilters);
+
+      // Recursive functions than waits until MatSort has loaded to update its values
+      const updateSort = () => {
+        if (!this.sort) {
+          setTimeout(updateSort, 50);
+        } else {
+          this.sort.active = this.pageFilters?.sortBy || '';
+          this.sort.direction = this.pageFilters?.sortOrder?.toLowerCase() as SortDirection || '';
+          this.sort._stateChanges.next();
+        }
+      }
+      updateSort();
     }
   }
 
+  /**
+   * Emits the current set filters as an event
+   */
   public applyFilters() {
-    const cleanedObject = Object.fromEntries(Object.entries(this.filterForm.value).filter(([_, v]) => v != null)) as unknown as PageFilters;
-    this.filterChanges.emit(cleanedObject);
+    this.filterChanges.emit(new PageFilters(this.fitlersForm.value));
   }
 
   /**
-   * The sort event result is applied to the filterForm
+   * The sort event result is applied to the fitlersForm
    * 
    * @param sort Sort event of the mat-sort
    */
   public sortData(sort: Sort) {
     // Checks the event direction, if no direction exist it assumes you dont want to sort anymore
     if (sort.direction) {
-      this.filterForm.patchValue({
+      this.fitlersForm.patchValue({
         sortBy: sort.active as SortBy,
         sortOrder: sort.direction.toUpperCase() as SortOrder
       })
     } else {
-      this.filterForm.patchValue({
-        sortBy: null,
-        sortOrder: null
+      this.fitlersForm.patchValue({
+        sortBy: undefined,
+        sortOrder: undefined
       })
     }
-    this.applyFilters()
+    this.applyFilters();
   }
 
   /**
@@ -113,29 +126,32 @@ export class PageFilterComponent implements OnChanges {
     return `${value}`;
   }
 
+  /**
+   * Toogles the filter open state, when closed it cleans the filters (except the searchbar) and applies them
+   */
   public toggleFilters() {
     if (this.filtersAreOpen) {
       this.clearFilters();
+      this.applyFilters();
     }
     this.filtersAreOpen = !this.filtersAreOpen;
   }
 
   /**
-   * Clears filterForm except the searchbar
+   * Clears fitlersForm except the searchbar
    */
   private clearFilters() {
-    this.filterForm.patchValue({
-      sortBy: null,
-      sortOrder: null,
-      minPrice: this.minPrice,
-      maxPrice: this.maxPrice,
-      minRating: 0,
+    this.fitlersForm.patchValue({
+      sortBy: this.pristinePageFilters.sortBy,
+      sortOrder: this.pristinePageFilters.sortOrder,
+      minPrice: this.pristinePageFilters.minPrice,
+      maxPrice: this.pristinePageFilters.maxPrice,
+      minRating: this.pristinePageFilters.minRating,
     })
     // Resets mat-sort state
     this.sort.active = '';
     this.sort.direction = '';
     this.sort._stateChanges.next();
-    this.applyFilters();
   }
 
 }

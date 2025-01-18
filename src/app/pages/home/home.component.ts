@@ -14,6 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { PageFilterComponent } from '../../components/page-filter/page-filter.component';
+import { PAGE_SIZE_OPTIONS } from '../../constants/settings';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class HomeComponent {
   public loading = true;
   public page: Page = new Page;
   public pageFilters?: PageFilters;
+  public pageSizeOptions = PAGE_SIZE_OPTIONS;
 
   constructor(public pageService: PageService) {
     this.pageFilters = this.pageService.storedPageFilters;
@@ -52,7 +54,7 @@ export class HomeComponent {
   }
 
   public filterChanges(filters: PageFilters) {
-    if (JSON.stringify(filters) !== JSON.stringify(this.pageService.storedPageFilters)) {
+    if (!this.pageService.storedPageFilters.compareTo(filters)) {
       this.loading = true;
       this.pageService.updatePage(this.page.page, this.page.limit, filters);
     }

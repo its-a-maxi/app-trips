@@ -7,7 +7,7 @@
     <mat-card-content>
         <p>{{trip.title}}</p>
         <p class="date" matTooltip="Creation date">
-            {{trip.creationDate.toLocaleDateString('en-GB', {year: 'numeric', month: 'short', day: 'numeric'})}}
+            {{trip.creationDate | FormatDatePipe}}
         </p>
         <h3>{{trip.price}} €</h3>
     </mat-card-content>

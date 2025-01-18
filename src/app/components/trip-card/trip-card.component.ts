@@ -3,6 +3,7 @@ import { Trip } from '../../models/trip.model';
 import {MatCardModule} from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
+import { FormatDatePipe } from '../../pipes/format-date.pipe';
 
 @Component({
   selector: 'app-trip-card',
@@ -10,7 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     MatCardModule,
     MatTooltipModule,
-    MatIconModule
+    MatIconModule,
+    FormatDatePipe
   ],
   templateUrl: './trip-card.component.html',
   styleUrl: './trip-card.component.scss'

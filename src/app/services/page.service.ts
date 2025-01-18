@@ -1,19 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, filter, map, Observable } from 'rxjs';
 import { Page, PageAdapter, PageFilters } from '../models/page.model';
-
-const TRIPS_API = "https://iy3ipnv3uc.execute-api.eu-west-1.amazonaws.com/Prod/v1"
-const PAGE_SIZE_OPTIONS = [12, 48, 96]
+import { PAGE_SIZE_OPTIONS, TRIPS_API_URL } from '../constants/settings';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PageService {
 
-  public pageSizeOptions = PAGE_SIZE_OPTIONS
-
-  public storedPageFilters?: PageFilters;
+  public storedPageFilters = new PageFilters;
 
   private $page = new BehaviorSubject<Page>(new Page);
 
@@ -43,12 +39,12 @@ export class PageService {
       this.storedPageFilters = filters;
       page = 1;
     }
-    const url = `${TRIPS_API}/trips`;
+    const url = `${TRIPS_API_URL}/trips`;
     const options = {
       params: {
         page,
         limit: size,
-        ...this.storedPageFilters
+        ...this.filterAsOptions(this.storedPageFilters)
       }
     }
     const pageSubscription = this.http.get<Page>(url, options)
@@ -56,5 +52,17 @@ export class PageService {
         this.$page.next(page);
         pageSubscription.unsubscribe();
       });
+  }
+
+  private filterAsOptions(filters: any): any {
+    let result: any = {};
+    for (var prop in filters) {
+      if (Object.prototype.hasOwnProperty.call(filters, prop)) {
+        if (typeof (filters as any)[prop] !== 'undefined') {
+          result[prop] = filters[prop];
+        }
+      }
+    }
+    return result;
   }
 }
