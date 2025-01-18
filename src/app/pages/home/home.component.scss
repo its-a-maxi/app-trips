@@ -1,4 +1,4 @@
-.trips-grid {
+.grid {
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
@@ -7,5 +7,16 @@
 
     & > * {
         cursor: pointer;
+    }
+}
+.grid-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+    gap: 24px;
+
+    mat-paginator {
+        margin-right: -8px;
     }
 }

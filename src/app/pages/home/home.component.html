@@ -1,17 +1,20 @@
 
 <app-page-filter (filterChanges)="filterChanges($event)" [pageFilters]="pageFilters"></app-page-filter>
-<div class="trips-grid" *ngIf="page">
+<div class="grid" *ngIf="page">
     <app-trip-card *ngFor="let trip of page.items" [trip]="trip" [routerLink]="'/trip/' + trip.id"></app-trip-card>
 </div>
-<mat-paginator
-    (page)="handlePageEvent($event)"
-    [pageIndex]="page ? page.page - 1 : 0"
-    [length]="page ? page.total : 0"
-    [pageSize]="page ? page.limit : 0"
-    [pageSizeOptions]="pageSizeOptions"
-    aria-label="Select page"
-    [disabled]="loading"
->
-</mat-paginator>
+<div class="grid-footer">
+    <button mat-stroked-button (click)="goToDailyTrip()">Trip of the day</button>
+    <mat-paginator
+        (page)="handlePageEvent($event)"
+        [pageIndex]="page ? page.page - 1 : 0"
+        [length]="page ? page.total : 0"
+        [pageSize]="page ? page.limit : 0"
+        [pageSizeOptions]="pageSizeOptions"
+        aria-label="Select page"
+        [disabled]="loading"
+    >
+    </mat-paginator>
+</div>
 
 <app-loader *ngIf="loading"></app-loader>

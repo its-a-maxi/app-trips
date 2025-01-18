@@ -15,8 +15,6 @@ describe('PageService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        PageService,
-        PageAdapter,
         provideHttpClient(),
         provideHttpClientTesting(),
       ],
@@ -76,7 +74,8 @@ describe('PageService', () => {
       next: (page) => {
         expect(page).withContext('expected page').toEqual(pageAdapter.adapt(expectedPage));
         done();
-      }
+      },
+      error: done.fail,
     });
     pageService.updatePage();
     
@@ -85,12 +84,13 @@ describe('PageService', () => {
     req.flush(expectedPage);
   });
 
-  it('#getPage should\'n be updated when #updatePage fails', (done: DoneFn) => {
+  it('#getPage shouldn\'t be updated when #updatePage fails', (done: DoneFn) => {
 
     pageService.getPage().pipe(skip(1)).subscribe({
       next: (page) => {
         done.fail('#getPage shouldn\'t be updated');
-      }
+      },
+      error: done.fail,
     });
     pageService.updatePage();
     

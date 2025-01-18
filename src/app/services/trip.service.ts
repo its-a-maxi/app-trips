@@ -28,4 +28,12 @@ export class TripService {
       catchError(error => throwError(() => error))
     );
   }
+
+  public getRandomTrip(): Observable<Trip> {
+    const url = `${TRIPS_API_URL}/trips/random/trip-of-the-day`;
+    return this.http.get<Trip>(url).pipe(
+      map((val: any) => this.tripAdapter.adapt(val)),
+      catchError(error => throwError(() => error))
+    );
+  }
 }

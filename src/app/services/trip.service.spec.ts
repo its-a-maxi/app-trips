@@ -6,6 +6,7 @@ import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { TRIPS_API_URL } from '../constants/settings';
+import { MOCK_TRIP } from '../testing/mocks';
 
 describe('TripService', () => {
   let tripAdapter: TripAdapter;
@@ -15,8 +16,6 @@ describe('TripService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        TripService,
-        TripAdapter,
         provideHttpClient(),
         provideHttpClientTesting(),
       ],
@@ -30,27 +29,9 @@ describe('TripService', () => {
     httpTesting.verify();
   });
 
-  it('#getTrip should return expected trip', (done: DoneFn) => {
-    const expectedTrip: any = {
-      id: "uuid",
-      title: "Trip to Paris",
-      description: "A beautiful journey through the city of lights",
-      price: 1000,
-      rating: 4.5,
-      nrOfRatings: 120,
-      verticalType: "flight",
-      tags: [
-        "station",
-        "airport",
-        "city",
-        "culture"
-      ],
-      co2: 5.9,
-      thumbnailUrl: "https://example.com/thumbnail.jpg",
-      imageUrl: "https://example.com/image.jpg",
-      creationDate: "2024-01-01T00:00:00Z"
-    }
-    const tripId = 'uuid'
+  it('#getTrip should return a trip', (done: DoneFn) => {
+    const expectedTrip = MOCK_TRIP;
+    const tripId = MOCK_TRIP.id;
 
     tripService.getTrip(tripId).subscribe({
       next: (trip) => {
@@ -66,7 +47,7 @@ describe('TripService', () => {
   });
 
   it('#getTrip should return an error when no trip is found', (done: DoneFn) => {
-    const tripId = 'nonExistent-uuid'
+    const tripId = `bad-${MOCK_TRIP.id}`;
 
     tripService.getTrip(tripId).subscribe({
       next: (trip) => done.fail('expected an error, not trip'),
@@ -87,7 +68,7 @@ describe('TripService', () => {
       status: 404,
       statusText: 'Not Found',
     });
-    const tripId = 'uuid'
+    const tripId = MOCK_TRIP.id;
     tripService.getTrip(tripId).subscribe({
       next: (trip) => done.fail('expected an error, not trip'),
       error: (error) => {
@@ -97,6 +78,40 @@ describe('TripService', () => {
     });
 
     const req = httpTesting.expectOne(`${TRIPS_API_URL}/trips/${tripId}`);
+    req.flush('Failed!', {status: 404, statusText: 'Not Found'});
+  });
+
+  it('#getRandomTrip should return a trip', (done: DoneFn) => {
+    const expectedTrip = MOCK_TRIP;
+
+    tripService.getRandomTrip().subscribe({
+      next: (trip) => {
+        expect(trip).withContext('expected trip').toEqual(tripAdapter.adapt(expectedTrip));
+        done();
+      },
+      error: done.fail,
+    });
+
+    const req = httpTesting.expectOne(`${TRIPS_API_URL}/trips/random/trip-of-the-day`);
+    expect(req.request.method).toBe("GET");
+    req.flush(expectedTrip);
+  });
+  
+  it('#getRandomTrip should return an error when the server returns a 404', (done: DoneFn) => {
+    const errorResponse = new HttpErrorResponse({
+      error: 'Test 404 error',
+      status: 404,
+      statusText: 'Not Found',
+    });
+    tripService.getRandomTrip().subscribe({
+      next: (trip) => done.fail('expected an error, not trip'),
+      error: (error) => {
+        expect(error.status).withContext('expected status').toEqual(404);
+        done();
+      },
+    });
+
+    const req = httpTesting.expectOne(`${TRIPS_API_URL}/trips/random/trip-of-the-day`);
     req.flush('Failed!', {status: 404, statusText: 'Not Found'});
   });
 });
