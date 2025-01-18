@@ -1,0 +1,66 @@
+<div class="header-container">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Trip to..." [formControl]="filterForm.controls.titleFilter" (focusout)="applyFilters()">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <button
+      mat-icon-button
+      aria-label="Toggle filters"
+      (click)="toggleFilters()"
+      [matTooltip]="filtersAreOpen ? 'Reset filters' : 'Open filters'"
+    >
+      <mat-icon>{{filtersAreOpen ? 'filter_alt_off' : 'filter_alt'}}</mat-icon>
+    </button>
+</div>
+<mat-expansion-panel hideToggle [expanded]="filtersAreOpen" class="mat-elevation-z0">
+    <!-- <mat-expansion-panel-header>
+      <mat-panel-title> This is the expansion title </mat-panel-title>
+      <mat-panel-description> This is a summary of the content </mat-panel-description>
+    </mat-expansion-panel-header> -->
+    <div class="flex-container">
+      <div class="range price">
+        <div class="label">
+          <label>Price range:</label>
+          <label>{{formatPrice(filterForm.value.minPrice!)}} - {{formatPrice(filterForm.value.maxPrice!)}} €</label>
+        </div>
+        <mat-slider
+          [max]="maxPrice"
+          [min]="minPrice"
+          [step]="100"
+        >
+          <input matSliderStartThumb [formControl]="filterForm.controls.minPrice" (click)="applyFilters()">
+          <input matSliderEndThumb [formControl]="filterForm.controls.maxPrice" (click)="applyFilters()">
+        </mat-slider>
+      </div>
+      <div class="range">
+        <div class="label">
+          <label>Min rating:</label>
+          <label>
+            {{filterForm.value.minRating}}
+          </label>
+        </div>
+        <mat-slider
+          [max]="5"
+          [min]="0"
+          [step]=".5"
+        >
+          <input matSliderThumb [formControl]="filterForm.controls.minRating" (click)="applyFilters()">
+        </mat-slider>
+      </div>
+    </div>
+    <div class="flex-container">
+      <!-- <p class="label">Sort by:</p> -->
+      <label>Sort by:</label>
+      <table matSort (matSortChange)="sortData($event)">
+        <tbody>
+          <tr>
+            <th mat-sort-header="title">Title</th>
+            <th mat-sort-header="price">Price</th>
+            <th mat-sort-header="rating">Rating</th>
+            <th mat-sort-header="creationDate">Creation Date</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</mat-expansion-panel>

@@ -1,0 +1,14 @@
+/** General class to address the host style of all pages */
+.page-container {
+    padding: 42px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > * {
+        width: 100%;
+        max-width: 1040px;
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

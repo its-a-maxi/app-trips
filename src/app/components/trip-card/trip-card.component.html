@@ -1,0 +1,14 @@
+<mat-card class="example-card" appearance="outlined">
+    <img mat-card-xl-image [src]="trip.thumbnailUrl">
+    <div class="rate-badge" matTooltip="Rating" matTooltipPosition="before">
+        <mat-icon>star_rate</mat-icon>
+        {{trip.rating}}
+    </div>
+    <mat-card-content>
+        <p>{{trip.title}}</p>
+        <p class="date" matTooltip="Creation date">
+            {{trip.creationDate.toLocaleDateString('en-GB', {year: 'numeric', month: 'short', day: 'numeric'})}}
+        </p>
+        <h3>{{trip.price}} €</h3>
+    </mat-card-content>
+  </mat-card>

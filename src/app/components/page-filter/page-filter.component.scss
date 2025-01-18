@@ -1,0 +1,68 @@
+.header-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 24px;
+
+    tr {
+        th:not(:last-child) {
+            padding-right: 8px;
+        }
+    }
+}
+
+mat-expansion-panel {
+    margin-top: 12px;
+
+    &.mat-expanded {
+        border: 1px solid lightgray;
+    }
+
+    .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 32px;
+        margin: 16px 0;
+        font-size: 16px;
+        position: relative;
+
+        &:first-child {
+            margin-top: 32px;
+        }
+        
+        .range {
+            flex: 1;
+
+            .label {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            mat-slider {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            &.price {
+                flex: 2;
+                min-width: 500px;
+                width: 100%;
+            }
+        }
+
+        label {
+            opacity: .6;
+        }
+
+        & > table {
+            th {
+                font-weight: normal;
+
+                &:not(:last-child) {
+                    padding-right: 8px;
+                }
+            }
+        }
+    }
+}

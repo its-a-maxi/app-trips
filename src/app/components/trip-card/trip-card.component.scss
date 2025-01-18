@@ -1,0 +1,51 @@
+:host {
+    position: relative;
+}
+
+img {
+    position: relative;
+    &:before {
+        content: 'Missing thumbnail';
+        font-size: 30px;
+        text-align: center;
+        color: rgb(168, 168, 168);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: lightgray;
+    }
+}
+
+.rate-badge {
+    position: absolute;
+    right: 0;
+    top: 20px;
+
+    border-radius: 50px 0 0 50px;
+    padding: 8px 16px ;
+    background-color: rgba(white, .8);
+
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    gap: 4px;
+
+    mat-icon {
+        scale: .8;
+    }
+}
+
+h3 {
+    text-align: right;
+}
+
+.date {
+    margin: -8px 0 -16px 0;
+    opacity: .6;
+    font-size: small;
+    width: fit-content;
+}
