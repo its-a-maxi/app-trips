@@ -1,4 +1,10 @@
-<button mat-icon-button aria-label="Open filters" [routerLink]="'/'" matTooltip="Back to trips" matTooltipPosition="after">
+<button
+    mat-icon-button aria-label="Open filters"
+    [routerLink]="'/'"
+    matTooltip="Back to trips"
+    matTooltipPosition="after"
+    id="go-back"
+>
     <mat-icon>chevron_left</mat-icon>
 </button>
 <app-loader *ngIf="!trip"></app-loader>
@@ -7,19 +13,19 @@
     <div>
         <div class="header">
             <!-- Title -->
-            <h2>{{trip.title}}</h2>
+            <h2 id="title">{{trip.title}}</h2>
             <!-- Rating -->
              <div class="rating">
                 <mat-icon>star_rate</mat-icon>
                 <p>
-                    <span>{{trip.rating}} </span>
+                    <span id="rating">{{trip.rating}} </span>
                     based on {{trip.nrOfRatings}} ratings
                 </p>
              </div>
         </div>
         <mat-divider></mat-divider>
         <!-- Creation date -->
-        <p class="date" matTooltip="Created on:" matTooltipPosition="before">
+        <p class="date" matTooltip="Created on:" matTooltipPosition="before" id="date">
             {{trip.creationDate | FormatDatePipe}}
         </p>
         <!-- Description -->
@@ -28,7 +34,7 @@
         <!-- Price -->
         <p class="text-section">
             <span>Price:</span>
-            <span>{{trip.price}} €</span>
+            <span id="price">{{trip.price}} €</span>
         </p>
         <!-- Tag list -->
         <div class="text-section">

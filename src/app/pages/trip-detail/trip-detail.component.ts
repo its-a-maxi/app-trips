@@ -43,6 +43,8 @@ export class TripDetailComponent {
     this.activeRoute.params.subscribe(params => {
       if (params['id'] && (!this.trip || params['id'] !== this.trip.id)) {
         this.setActiveTrip(params['id'])
+      } else if (!params['id']) {
+        this.route.navigate(['/']);
       }
     })
   }

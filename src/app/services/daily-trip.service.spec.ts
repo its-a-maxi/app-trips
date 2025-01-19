@@ -2,31 +2,25 @@ import { TestBed } from '@angular/core/testing';
 
 import { DailyTripService } from './daily-trip.service';
 import { provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { TRIPS_API_URL } from '../constants/settings';
 
 import { MOCK_TRIP } from '../testing/mocks';
 import { TripService } from './trip.service';
 import { Trip, TripAdapter } from '../models/trip.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 describe('DailyTripService', () => {
   let dailyTripService: DailyTripService;
-  let httpTesting: HttpTestingController;
   let tripService: TripService;
-  let tripAdapter: TripAdapter;
+  let tripAdapter = new TripAdapter();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        provideHttpClient(),
-        provideHttpClientTesting()
+        provideHttpClient()
       ],
     });
     dailyTripService = TestBed.inject(DailyTripService);
-    httpTesting = TestBed.inject(HttpTestingController);
     tripService = TestBed.inject(TripService);
-    tripAdapter = TestBed.inject(TripAdapter);
 
     // Set default local storage values
     localStorage.setItem("dailyTripId", 'locally-stored-id');
