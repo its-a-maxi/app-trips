@@ -1,6 +1,6 @@
 <div class="header-container">
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Search</mat-label>
+      <mat-label id="searchbar">Search</mat-label>
       <input matInput placeholder="Trip to..." [formControl]="fitlersForm.controls.titleFilter" (focusout)="applyFilters()">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
@@ -9,6 +9,7 @@
       aria-label="Toggle filters"
       (click)="toggleFilters()"
       [matTooltip]="filtersAreOpen ? 'Reset filters' : 'Open filters'"
+      id="filter-toggle"
     >
       <mat-icon>{{filtersAreOpen ? 'filter_alt_off' : 'filter_alt'}}</mat-icon>
     </button>

@@ -64,6 +64,7 @@ export class PageFilterComponent implements OnChanges {
    */
   ngOnChanges(): void {
     if (this.pageFilters) {
+      console.log('new page filters')
       // Checks if any filter properly has been altered compared to the filter "clean" state
       if (!this.pristinePageFilters.compareTo(new PageFilters({...this.pageFilters, titleFilter: ''}))) {
         this.filtersAreOpen = true;

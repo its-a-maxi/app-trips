@@ -84,7 +84,7 @@ describe('HomeComponent', () => {
   it('should navigate to /trip/[id] when daily trip button is clicked', async () => {
     const button = fixture.debugElement.nativeElement.querySelector(`#daily-trip`);
     button.click();
-    await fixture.whenStable();
+    await component.goToDailyTrip();
     expect(TestBed.inject(Router).url)
       .withContext('should nav to trip if daily trip is clicked')
       .toEqual(`/trip/${MOCK_TRIP.id}`);
@@ -93,7 +93,7 @@ describe('HomeComponent', () => {
   it('should navigate to /trips/[id] when trip-card is clicked', async () => {
     const tripCard = fixture.debugElement.nativeElement.querySelector(`#trip-${MOCK_TRIP.id}`);
     tripCard.click();
-    await fixture.whenStable();
+    await fixture.whenRenderingDone();
     expect(TestBed.inject(Router).url)
       .withContext('should nav to trip if trip-card is clicked')
       .toEqual(`/trip/${MOCK_TRIP.id}`);
@@ -122,7 +122,6 @@ describe('HomeComponent', () => {
   })
 
   it('should reload page if #updatePage fails', async () => {
-
     pageService.updatePage = (page?: number, size?: number, filters?: PageFilters) => {
       return mockPageObservable.pipe(map(() => {
           throw new HttpErrorResponse({ status: 404 });
