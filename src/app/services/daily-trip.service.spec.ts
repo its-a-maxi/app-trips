@@ -20,17 +20,15 @@ describe('DailyTripService', () => {
       ],
     });
     dailyTripService = TestBed.inject(DailyTripService);
+
+    // Mock implementation of getRandomTrip without the use of http
     tripService = TestBed.inject(TripService);
+    tripService.getRandomTrip = () => new BehaviorSubject<Trip>(tripAdapter.adapt(MOCK_TRIP)).asObservable();
 
     // Set default local storage values
     localStorage.setItem("dailyTripId", 'locally-stored-id');
     localStorage.setItem("dailyTripDay", new Date().toDateString());
 
-    // Mock implementation of getRandomTrip without the use of http
-    tripService.getRandomTrip = () => {
-      const result = new BehaviorSubject<Trip>(tripAdapter.adapt(MOCK_TRIP));
-      return result.asObservable();
-    }
   });
     
   it('#getDailyTrip should return an id', async () => {

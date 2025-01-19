@@ -44,20 +44,26 @@ export class HomeComponent {
   ) {
     this.pageFilters = this.pageService.storedPageFilters;
     this.pageService.getPage().subscribe(page => {
-      this.page = page,
-      this.loading = false
+      this.page = page;
+      this.loading = false;
     });
   }
 
   public handlePageEvent(event: PageEvent) {
     this.loading = true;
-    this.pageService.updatePage(event.pageIndex + 1, event.pageSize);
+    const pageSubscription = this.pageService.updatePage(event.pageIndex + 1, event.pageSize).subscribe({
+      error: (error) => this.windowReload(),
+      complete: () => pageSubscription.unsubscribe()
+    });
   }
 
   public filterChanges(filters: PageFilters) {
     if (!this.pageService.storedPageFilters.compareTo(filters)) {
       this.loading = true;
-      this.pageService.updatePage(this.page.page, this.page.limit, filters);
+      const pageSubscription = this.pageService.updatePage(this.page.page, this.page.limit, filters).subscribe({
+        error: () => this.windowReload(),
+        complete: () => pageSubscription.unsubscribe()
+      });
     }
   }
 
@@ -66,5 +72,9 @@ export class HomeComponent {
     if (tripId) {
       this.router.navigateByUrl(`/trip/${tripId}`);
     }
+  }
+
+  private windowReload () {
+    window.location.reload();
   }
 }

@@ -17,3 +17,12 @@ export const MOCK_TRIP = {
     imageUrl: "https://example.com/image.jpg",
     creationDate: "2024-01-01T00:00:00Z"
   }
+
+export const MOCK_PAGE = {
+  items: [
+    MOCK_TRIP
+  ],
+  total: 1011,
+  page: 1,
+  limit: 1
+}

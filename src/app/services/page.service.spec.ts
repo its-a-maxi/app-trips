@@ -6,6 +6,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { Page, PageAdapter, PageFilters } from '../models/page.model';
 import { TRIPS_API_URL } from '../constants/settings';
 import { skip } from 'rxjs';
+import { MOCK_PAGE } from '../testing/mocks';
 
 describe('PageService', () => {
   let pageService: PageService;
@@ -43,32 +44,7 @@ describe('PageService', () => {
   })
 
   it('#getPage should be updated with expected page by #updatePage', (done: DoneFn) => {
-     const expectedPage = {
-      items: [
-        {
-          id: "uuid",
-          title: "Trip to Paris",
-          description: "A beautiful journey through the city of lights",
-          price: 1000,
-          rating: 4.5,
-          nrOfRatings: 120,
-          verticalType: "flight",
-          tags: [
-            "station",
-            "airport",
-            "city",
-            "culture"
-          ],
-          co2: 5.9,
-          thumbnailUrl: "https://example.com/thumbnail.jpg",
-          imageUrl: "https://example.com/image.jpg",
-          creationDate: "2024-01-01T00:00:00Z"
-        }
-      ],
-      total: 1011,
-      page: 1,
-      limit: 1
-    }
+     const expectedPage = MOCK_PAGE
 
     pageService.getPage().pipe(skip(1)).subscribe({
       next: (page) => {

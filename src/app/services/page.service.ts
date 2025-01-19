@@ -51,11 +51,15 @@ export class PageService {
       .pipe(
         map((val) => this.pageAdapter.adapt(val)),
         catchError(error => throwError(() => error))
-      ).subscribe({
-        next: (page) => this.$page.next(page),
-        error: () => this.storedPageFilters = new PageFilters,
-        complete:() => pageSubscription.unsubscribe()
-      });
+      );
+
+    const setPageSubscription = pageSubscription.subscribe({
+      next: (page) => this.$page.next(page),
+      error: () => this.storedPageFilters = new PageFilters,
+      complete:() => setPageSubscription.unsubscribe()
+    });
+    
+    return pageSubscription;
   }
 
   private filterAsOptions(filters: any): any {

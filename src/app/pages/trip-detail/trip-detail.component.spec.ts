@@ -4,7 +4,7 @@ import { TripDetailComponent } from './trip-detail.component';
 import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
 import { TripService } from '../../services/trip.service';
 import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
-import { Trip, TripAdapter } from '../../models/trip.model';
+import { TripAdapter } from '../../models/trip.model';
 import { MOCK_TRIP } from '../../testing/mocks';
 import { RouterTestingHarness } from '@angular/router/testing'
 import { provideRouter, Router } from '@angular/router';
@@ -17,7 +17,6 @@ const mockGetTrip = function(id: string) {
         if (val.id === id) {
           return val
         } else {
-          console.log('error-triggered')
           throw new HttpErrorResponse({
             error: 'No trip with that ID has been found',
             statusText: `No trip with id:${id} exists`,
@@ -63,7 +62,7 @@ describe('TripDetailComponent', () => {
   });
 
   it('should fetch the expected trip from the url id', async () => {
-    expect(component.trip?.id).withContext('expected trip id').toMatch(MOCK_TRIP.id);
+    expect(component.trip?.id).withContext('expected trip id').toEqual(MOCK_TRIP.id);
   });
 
   it('should go back to home if the trip from the url id doesn\'t exist', async () => {
