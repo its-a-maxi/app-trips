@@ -1,27 +1,92 @@
-# AppTrips
+<!--
+*** Amazing README template from othneildrew
+*** https://github.com/othneildrew/Best-README-Template
+-->
+
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <h1>App Trips</h1>
+  <img src="page-peek.png" />
+</div>
+
+<!-- ABOUT THE PROJECT -->
+## ℹ️ About The Project
+
+Take-home challenge from BizAway.
+
+The objective is to create a simple travel platform, which will allow the user to interact with a list of travels fetched from an API.
+Travels from the list can be opened on a new page to see a more detailed view.
+The list has to be filterable and has to keep its state when navigating to other pages and going back.
+A trip of the day feature has to be implemented where a random travel is shown, the travel musn't change during the duration of the day.
+
+Unit tests had to be developed for the app.
+
+### Subject
+
+* [Subject](https://bitbucket.org/bizaway/tech-challenge/src/main/frontend.md)
+
+### Built With
+
+* [Angular](https://angular.io/)
+* [AngularMaterial](https://material.angular.io/)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- GETTING STARTED -->
+## 🏃 Quick Start
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
 
-## Development server
+### Prerequisites
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+* Have [NodeJs](https://www.docker.com/) (at minimum v18.13) installed
 
-## Code scaffolding
+### Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* Clone the repo
+```sh
+  git clone [https://github.com/its-a-maxi/app-trips.git](https://github.com/its-a-maxi/app-trips.git)
+```
+  
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+<!-- USAGE EXAMPLES -->
+## ⌨️ Usage
 
-## Running unit tests
+* Start the app locally
+```sh
+  npm run start
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* Navigate to [localhost:4200](http://localhost:4200/)
+  
+<br />
+<br />
 
-## Running end-to-end tests
+* For running the unit tests (with karma)
+```sh
+  npm run test
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+* For building the app
+```sh
+  npm run build
+```
 
-## Further help
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+<!-- CONTACT -->
+## 📫 Contact
+
+Maximo Monroy - monroy.vds@gmail.com
+
+Project Link: [https://github.com/its-a-maxi/app-trips](https://github.com/its-a-maxi/app-trips)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
