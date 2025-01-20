@@ -1,3 +1,4 @@
+<!-- Goes back to the home page -->
 <button
     mat-icon-button aria-label="Open filters"
     [routerLink]="'/'"
@@ -7,7 +8,8 @@
 >
     <mat-icon>chevron_left</mat-icon>
 </button>
-<app-loader *ngIf="!trip"></app-loader>
+
+<!-- Trip details -->
 <div class="trip-container" *ngIf="trip">
     <img [src]="trip.imageUrl" alt="">
     <div>
@@ -61,3 +63,6 @@
         </mat-card>
     </div>
 </div>
+
+<!-- Will display a loader until the trip is set -->
+<app-loader *ngIf="!trip"></app-loader>

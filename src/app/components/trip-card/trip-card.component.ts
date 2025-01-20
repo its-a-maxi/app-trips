@@ -18,5 +18,8 @@ import { FormatDatePipe } from '../../pipes/format-date.pipe';
   styleUrl: './trip-card.component.scss'
 })
 export class TripCardComponent {
+  /**
+   * Trip to display
+   */
   @Input() trip!: Trip;
 }

@@ -7,13 +7,18 @@ import { firstValueFrom } from 'rxjs';
 })
 export class DailyTripService {
 
-  // private _dailyTrip?: { id: string, date: Date }
-  // public get dailyTrip() {
-  //   return 
-  // }
-
+  /**
+   * 
+   * @param tripService Used to fetch the random trip of the day
+   */
   constructor(private tripService: TripService) { }
 
+  /**
+   * Tries to get the trip of the day from the local storage,
+   * if that fails, it will fetch a random trip and save it in the local storage
+   * 
+   * @returns A promise which will return the trip of the day id or a null if there's any error
+   */
   public async getDailyTrip(): Promise<string | null> {
     const dailyTripId = localStorage.getItem("dailyTripId");
     const dailyTripDay = localStorage.getItem("dailyTripDay");
