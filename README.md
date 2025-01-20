@@ -51,6 +51,16 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ```sh
   git clone https://github.com/its-a-maxi/app-trips.git
 ```
+
+* Navigate to the project folder
+```sh
+  cd app-trips
+```
+
+* Install necessary packages
+```sh
+  npm i
+```
   
 <p align="right">(<a href="#top">back to top</a>)</p>
 
