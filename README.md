@@ -77,6 +77,22 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ```sh
   npm run build
 ```
+  
+<br />
+<br />
+
+* Project settings can be modified from:
+```sh
+  src/app/constants/settings.ts
+```
+<dl>
+  <dd>
+    <dl>
+      <dd>Maximum filter price, minimum filter price, page size options, and the API url.</dd>
+    </dl>
+  </dd>
+</dl>
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
