@@ -64,13 +64,13 @@ export class PageFilterComponent implements OnChanges {
    */
   ngOnChanges(): void {
     if (this.pageFilters) {
-      console.log('new page filters')
-      // Checks if any filter properly has been altered compared to the filter "clean" state
+      // Checks if any filter properly has been altered (except searchbar) compared to the filter "clean" state
       if (!this.pristinePageFilters.compareTo(new PageFilters({...this.pageFilters, titleFilter: ''}))) {
         this.filtersAreOpen = true;
       }
       this.fitlersForm.patchValue(this.pageFilters);
 
+      // TO DO: Find a more elegant solution
       // Recursive functions than waits until MatSort has loaded to update its values
       const updateSort = () => {
         if (!this.sort) {
@@ -123,7 +123,6 @@ export class PageFilterComponent implements OnChanges {
     if (value >= 1000) {
       return Math.round(value / 100) / 10 + 'k';
     }
-
     return `${value}`;
   }
 

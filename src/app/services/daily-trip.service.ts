@@ -23,7 +23,6 @@ export class DailyTripService {
     const dailyTripId = localStorage.getItem("dailyTripId");
     const dailyTripDay = localStorage.getItem("dailyTripDay");
     const today = new Date().toDateString();
-    console.log(today, dailyTripDay, dailyTripId);
 
     if (dailyTripId && dailyTripDay && today === dailyTripDay) {
       return Promise.resolve(dailyTripId);
