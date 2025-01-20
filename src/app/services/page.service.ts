@@ -46,16 +46,16 @@ export class PageService {
    * @param filters Applied filters
    * @returns an observable with the result of the query
    */
-  public updatePage(page: number = 1, size: number = PAGE_SIZE_OPTIONS[0], filters?: PageFilters) {
+  public updatePage(pageIndex: number = 1, size: number = PAGE_SIZE_OPTIONS[0], filters?: PageFilters) {
     if (filters) {
       // Saves the passed filters
       this.storedPageFilters = filters;
-      page = 1;
+      pageIndex = 1;
     }
     const url = `${TRIPS_API_URL}/trips`;
     const options = {
       params: {
-        page,
+        page: pageIndex,
         limit: size,
         ...this.filterAsOptions(this.storedPageFilters)
       }

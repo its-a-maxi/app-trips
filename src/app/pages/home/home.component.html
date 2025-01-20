@@ -1,6 +1,8 @@
 
+<!-- Page filters -->
 <app-page-filter (filterChanges)="filterChanges($event)" [pageFilters]="pageFilters"></app-page-filter>
 
+<!-- Trip list -->
 <div class="grid" *ngIf="page">
     <app-trip-card
         *ngFor="let trip of page.items"
@@ -10,11 +12,12 @@
     ></app-trip-card>
 </div>
 
+<!-- Pagination + trip of the day button -->
 <div class="grid-footer">
     <button mat-stroked-button (click)="goToDailyTrip()" id="daily-trip">Trip of the day</button>
     <mat-paginator
         (page)="handlePageEvent($event)"
-        [pageIndex]="page.page"
+        [pageIndex]="page.page - 1"
         [length]="page.total"
         [pageSize]="page.limit"
         [pageSizeOptions]="pageSizeOptions"
@@ -24,4 +27,5 @@
     </mat-paginator>
 </div>
 
+<!-- Will display a loader when loading a new page -->
 <app-loader *ngIf="loading"></app-loader>
