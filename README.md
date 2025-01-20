@@ -49,7 +49,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 * Clone the repo
 ```sh
-  git clone [https://github.com/its-a-maxi/app-trips.git](https://github.com/its-a-maxi/app-trips.git)
+  git clone https://github.com/its-a-maxi/app-trips.git
 ```
   
 <p align="right">(<a href="#top">back to top</a>)</p>
