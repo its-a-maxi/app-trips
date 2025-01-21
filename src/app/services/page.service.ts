@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, filter, map, Observable, throwError } from 'rxjs';
 import { Page, PageAdapter, PageFilters } from '../models/page.model';
-import { PAGE_SIZE_OPTIONS, TRIPS_API_URL } from '../constants/settings';
+import { PAGE_SIZE_OPTIONS, TRIPS_API_URL } from '../../constants/settings';
 
 @Injectable({
   providedIn: 'root'

@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Trip, TripAdapter } from '../models/trip.model';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { TRIPS_API_URL } from '../constants/settings';
+import { TRIPS_API_URL } from '../../constants/settings';
 
 @Injectable({
   providedIn: 'root'

@@ -10,7 +10,7 @@ import { LoaderComponent } from '../../components/loader/loader.component';
 import { PageFilterComponent } from '../../components/page-filter/page-filter.component';
 import { DailyTripService } from '../../services/daily-trip.service';
 
-import { PAGE_SIZE_OPTIONS } from '../../constants/settings';
+import { PAGE_SIZE_OPTIONS } from '../../../constants/settings';
 import { MatButtonModule } from '@angular/material/button';
 import { Subscription } from 'rxjs';
 

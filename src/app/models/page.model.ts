@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Trip, TripAdapter } from "./trip.model";
 import { Adapter } from "./adapter";
-import { MAX_FILTER_PRICE, MIN_FILTER_PRICE } from "../constants/settings";
+import { MAX_FILTER_PRICE, MIN_FILTER_PRICE } from "../../constants/settings";
 
 /**
  * Page filter SortORder type

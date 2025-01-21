@@ -93,7 +93,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 * Project settings can be modified from:
 ```sh
-  src/app/constants/settings.ts
+  src/constants/settings.ts
 ```
 <dl>
   <dd>

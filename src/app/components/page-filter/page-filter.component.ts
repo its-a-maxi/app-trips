@@ -12,7 +12,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PageFilters, SortBy, SortOrder } from '../../models/page.model';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MAX_FILTER_PRICE, MIN_FILTER_PRICE } from '../../constants/settings';
+import { MAX_FILTER_PRICE, MIN_FILTER_PRICE } from '../../../constants/settings';
 
 @Component({
   selector: 'app-page-filter',
