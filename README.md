@@ -11,6 +11,11 @@
   <img src="page-peek.png" />
 </div>
 
+## 💻 Check the app
+[Hosted by GitHub pages](https://its-a-maxi.github.io/app-trips/home)
+
+<br />
+
 <!-- ABOUT THE PROJECT -->
 ## ℹ️ About The Project
 
