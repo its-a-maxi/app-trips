@@ -32,8 +32,8 @@
           [min]="minPrice"
           [step]="100"
         >
-          <input matSliderStartThumb [formControl]="fitlersForm.controls.minPrice" (click)="applyFilters()">
-          <input matSliderEndThumb [formControl]="fitlersForm.controls.maxPrice" (click)="applyFilters()">
+          <input matSliderStartThumb [formControl]="fitlersForm.controls.minPrice" (valueChange)="applyFilters()">
+          <input matSliderEndThumb [formControl]="fitlersForm.controls.maxPrice" (valueChange)="applyFilters()">
         </mat-slider>
       </div>
       <div class="range">
@@ -48,7 +48,7 @@
           [min]="0"
           [step]=".5"
         >
-          <input matSliderThumb [formControl]="fitlersForm.controls.minRating" (click)="applyFilters()">
+          <input matSliderThumb [formControl]="fitlersForm.controls.minRating" (valueChange)="applyFilters()">
         </mat-slider>
       </div>
     </div>
