@@ -1,7 +1,13 @@
 <div class="header-container">
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
       <mat-label id="searchbar">Search</mat-label>
-      <input matInput placeholder="Trip to..." [formControl]="fitlersForm.controls.titleFilter" (focusout)="applyFilters()">
+      <input
+        matInput
+        placeholder="Trip to..."
+        [formControl]="fitlersForm.controls.titleFilter"
+        (focusout)="applyFilters()"
+        (keyup.enter)="applyFilters()"
+      >
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
     <button
@@ -15,7 +21,7 @@
     </button>
 </div>
 <mat-expansion-panel hideToggle [expanded]="filtersAreOpen" class="mat-elevation-z0">
-    <div class="flex-container">
+    <div class="flex-container flex-break">
       <div class="range price">
         <div class="label">
           <label>Price range:</label>

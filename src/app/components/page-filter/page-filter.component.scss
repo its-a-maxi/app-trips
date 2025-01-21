@@ -27,6 +27,16 @@ mat-expansion-panel {
         font-size: 16px;
         position: relative;
 
+        &.flex-break {
+            @media (max-width: 700px) {
+                flex-direction: column;
+
+                .range {
+                    width: 100%;
+                }
+            }
+        }
+
         &:first-child {
             margin-top: 32px;
         }
@@ -46,8 +56,6 @@ mat-expansion-panel {
 
             &.price {
                 flex: 2;
-                min-width: 500px;
-                width: 100%;
             }
         }
 
