@@ -4,7 +4,7 @@ import { PageService } from './page.service';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { Page, PageAdapter, PageFilters } from '../models/page.model';
-import { TRIPS_API_URL } from '../constants/settings';
+import { TRIPS_API_URL } from '../../constants/settings';
 import { skip } from 'rxjs';
 import { MOCK_PAGE } from '../testing/mocks';
 

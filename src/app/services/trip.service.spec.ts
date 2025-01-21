@@ -5,7 +5,7 @@ import { TripAdapter } from '../models/trip.model';
 import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
-import { TRIPS_API_URL } from '../constants/settings';
+import { TRIPS_API_URL } from '../../constants/settings';
 import { MOCK_TRIP } from '../testing/mocks';
 
 describe('TripService', () => {

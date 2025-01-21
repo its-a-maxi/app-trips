@@ -4,6 +4,7 @@
         <mat-icon>star_rate</mat-icon>
         {{trip.rating}}
     </div>
+    <mat-chip [ngClass]="trip.score" matTooltip="Trip score" matTooltipPosition="after">{{trip.score}}</mat-chip>
     <mat-card-content>
         <p id="title">{{trip.title}}</p>
         <p id="date" matTooltip="Created on">

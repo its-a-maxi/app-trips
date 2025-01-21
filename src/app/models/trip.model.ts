@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Adapter } from "./adapter";
 
+type TripScore = 'average' | 'good' | 'awesome'
+
 /**
  * Trip type declaration
  */
@@ -16,7 +18,8 @@ export interface Trip {
     co2: number,
     thumbnailUrl: string,
     imageUrl: string,
-    creationDate: Date
+    creationDate: Date,
+    score: TripScore
 }
 
 /**
@@ -45,8 +48,25 @@ export class TripAdapter implements Adapter<Trip> {
       co2: item.co2,
       thumbnailUrl: item.thumbnailUrl,
       imageUrl: item.imageUrl,
-      creationDate: new Date(item.creationDate)
+      creationDate: new Date(item.creationDate),
+      score: this.getTripScore(item)
     };
     return trip;
+  }
+
+  private getTripScore(item: any) : TripScore {
+    const rating = item.rating / 5;
+    const nrOfRatings = item.nrOfRatings / 1000;
+    const ratingsScore = rating + (nrOfRatings * rating) * .4;
+    const co2 = -(item.co2 / 1000);
+    const result = ratingsScore * .8 + co2 * .2;
+    
+    if (result > .7) {
+      return 'awesome'
+    } else if (result > .3) {
+      return 'good'
+    } else {
+      return 'average'
+    };
   }
 }

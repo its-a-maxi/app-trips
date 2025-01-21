@@ -33,6 +33,11 @@
         <!-- Description -->
         <p>{{trip.description}}</p>
         <br>
+        <!-- Score -->
+        <div class="text-section">
+            <span>Trip score:</span>
+            <mat-chip [ngClass]="trip.score">{{trip.score}}</mat-chip>
+        </div>
         <!-- Price -->
         <p class="text-section">
             <span>Price:</span>

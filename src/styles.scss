@@ -9,6 +9,20 @@
         width: 100%;
         max-width: 1040px;
     }
+
+    mat-chip {
+        text-transform: capitalize;
+
+        &.awesome {
+            background-color:lightskyblue;
+        }
+        &.good {
+            background-color:lightgreen;
+        }
+        &.average {
+            background-color:khaki;
+        }
+    }
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
